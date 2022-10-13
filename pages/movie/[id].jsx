@@ -33,7 +33,7 @@ export const getStaticPaths = async () => {
       id: movie.id.toString(),
     },
   }));
-  return { paths, fallback: true };
+  return { paths, fallback: "blocking" };
 };
 
 export const getStaticProps = async (context) => {

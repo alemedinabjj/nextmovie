@@ -1,5 +1,6 @@
 import axios from "axios";
 import TvDisplay from "../../../../components/TvDisplay";
+import Head from "next/head";
 
 export const getServerSideProps = async ({ query }) => {
   const { pageid } = query;
@@ -17,6 +18,9 @@ export const getServerSideProps = async ({ query }) => {
 export default function Popular({ popularTv, pageid }) {
   return (
     <div>
+      <Head>
+        <title>Tv Shows | page {pageid}</title>
+      </Head>
       <TvDisplay tv={popularTv} pageid={pageid} />
     </div>
   );

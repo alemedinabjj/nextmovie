@@ -11,13 +11,13 @@ const MovieDisplay = ({ movies, pageid }) => {
   const router = useRouter();
 
   const handleNextMovie = () => {
-    router.push(`/movies/popular/page/${parseInt(pageid) + 1}`);
+    router.push(`/movie/popular/page/${parseInt(pageid) + 1}`);
   };
 
   const handlePrevMovie = () => {
-    router.push(`/movies/popular/page/${parseInt(pageid) - 1}`);
+    router.push(`/movie/popular/page/${parseInt(pageid) - 1}`);
     if (pageid === 1) {
-      router.push(`/movies/popular/page/${parseInt(pageid)}`);
+      router.push(`/movie/popular/page/${parseInt(pageid)}`);
     }
   };
 

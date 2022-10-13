@@ -1,5 +1,4 @@
 import styles from "./styles.module.scss";
-import Link from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/router";
 
@@ -9,7 +8,7 @@ export const Card = ({ movies }) => {
   let location = typeof window !== "undefined" && window.location.toString().includes("tv");
 
   const handleMovieDetail = (id) => {
-    router.push(`/movies/${id}`);
+    router.push(`/movie/${id}`);
   };
 
   const handleTvDetail = (id) => {
@@ -18,7 +17,7 @@ export const Card = ({ movies }) => {
 
   return (
     <ul className={styles.movieDisplay__list}>
-      {movies.map((movie) => (
+      {movies?.map((movie) => (
         <div onClick={location ? () => handleTvDetail(movie.id) : () => handleMovieDetail(movie.id)} key={movie.id}>
           <div className={styles.movieDisplay__container}>
             <li key={movie.id} className={styles.movieDisplay__item}>
