@@ -12,6 +12,8 @@ class MyDocument extends Document {
             rel="stylesheet"
           />
           <meta name="description" content="Next Movie" />
+          <meta name="keywords" content="next, movie, movies, film, films" />
+          <meta name="author" content="Next Movie" />
         </Head>
         <body>
           <Main />
