@@ -1,0 +1,43 @@
+.movieDisplay__container {
+  display: flex;
+  padding-inline: 0.4rem;
+}
+
+.movieDisplay__list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 3rem;
+  margin-top: 2rem;
+
+  position: relative;
+}
+
+.movieDisplay__item {
+  width: 20rem;
+  height: 30rem;
+  background-color: #fff;
+  border-radius: 0.5rem;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  transition: all 0.3s ease-in-out;
+
+  cursor: pointer;
+
+  &:hover {
+    transform: scale(1.05);
+  }
+
+  .movieDisplay__item__img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .movieDisplay__title {
+    font-size: 1.2rem;
+    font-weight: 500;
+    letter-spacing: 1px;
+    padding: 0.5rem 0.5rem 0 0.5rem;
+  }
+}
