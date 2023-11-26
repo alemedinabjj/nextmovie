@@ -4,7 +4,6 @@ import { useRouter } from "next/router";
 import MovieDisplay from "../components/MovieDisplay/MovieDisplay";
 
 export default function Home({ movies }) {
-  const router = useRouter();
 
   return (
     <div>
@@ -13,13 +12,6 @@ export default function Home({ movies }) {
       </Head>
 
       <main>
-        <h1
-          style={{
-            textAlign: "center",
-          }}
-        >
-          Next Film
-        </h1>
         <MovieDisplay movies={movies} />
       </main>
     </div>
@@ -27,8 +19,14 @@ export default function Home({ movies }) {
 }
 
 export const getStaticProps = async () => {
-  const res = await axios.get("https://api.themoviedb.org/3/movie/popular?api_key=abff7a99b8f97c6f37ba8e4ee5382d72&language=en-US&page=1");
-  const movies = res.data.results;
+  const res = await axios.get(`https://api.themoviedb.org/3/movie/popular?api_key=${process.env.API_KEY_TMDB}&language=en-US&page=1`);
+  const movies = res.data.results.map((item) => {
+    return {
+      ...item,
+      urlMovie: `${process.env.URL_PLAY}${item.id}`
+    }
+  })
+
   return {
     props: {
       movies,

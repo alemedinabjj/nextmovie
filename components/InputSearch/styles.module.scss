@@ -1,0 +1,37 @@
+.searchContainer {
+  display: flex;
+  align-items: center;
+  border: 1px solid #ccc;
+  padding: 8px;
+  border-radius: 20px; 
+  width: 40px; 
+  overflow: hidden;
+
+  transition: width 0.3s ease;
+
+  &:focus-within {
+    width: 200px; 
+    box-shadow: 0 0 0 2px #4d90fe; 
+    border-color: #4d90fe;
+  }
+
+  &:hover {
+    width: 200px; 
+  }
+
+  .searchIcon {
+    margin-right: 8px; 
+  }
+
+  .searchInput {
+    border: none;
+    outline: none;
+    width: 100%; 
+    transition: width 0.3s ease; 
+
+    &:hover {
+      width: calc(100% - 16px); 
+    }
+
+  }
+}

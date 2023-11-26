@@ -1,31 +1,50 @@
+import { useRouter } from "next/router";
 import { Card } from "../Card/Card";
 import { Pagination } from "../Pagination/Pagination";
 import styles from "./styles.module.scss";
-import { useRouter } from "next/router";
+import { useQuery } from "react-query";
 
-const MovieDisplay = ({ movies, pageid }) => {
-  if (isNaN(pageid)) {
-    pageid = 1;
-  }
+
+const MovieDisplay = ({ movies }) => {
+  const apiKey = process.env.API_KEY_TMDB;
 
   const router = useRouter();
 
+  const { page = 1 } = router.query 
+
+  console.log(apiKey)
+
+  const { data: moviesData, isLoading, isError } = useQuery(["movies", page, apiKey], async () => {
+    const res = await fetch(`https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}&language=en-US&page=${page}`);
+    const data = await res.json();
+    return data.results;
+  }, 
+  {
+    initialData: movies,
+    refetchOnWindowFocus: false,
+    keepPreviousData: true,
+  }
+  );
+
+
   const handleNextMovie = () => {
-    router.push(`/movie/popular/page/${parseInt(pageid) + 1}`);
+    router.push(`/?page=${parseInt(page) + 1}`);
   };
 
   const handlePrevMovie = () => {
-    router.push(`/movie/popular/page/${parseInt(pageid) - 1}`);
-    if (pageid === 1) {
-      router.push(`/movie/popular/page/${parseInt(pageid)}`);
-    }
+
+    //se for menor que 1, não faz nada
+    if (parseInt(page) <= 1) return;
+
+    router.push(`/?page=${parseInt(page) - 1}`);
+
   };
 
-  console.log(movies);
+  console.log(moviesData);
 
   return (
     <div className={styles.container}>
-      <Card movies={movies} />
+      <Card movies={moviesData} />
       <Pagination handleNextMovie={handleNextMovie} handlePrevMovie={handlePrevMovie} />
     </div>
   );

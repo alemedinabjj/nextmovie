@@ -38,6 +38,9 @@ export const Card = ({ movies }) => {
                 height={450}
                 layout="responsive"
                 objectFit="cover"
+                //blur up effect
+                placeholder="blur"
+                blurDataURL={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
               />
             </li>
           </div>

@@ -1,7 +1,10 @@
+import { InputSearch } from "../InputSearch";
 import styles from "./styles.module.scss";
 import Link from "next/link";
 
 export const Header = () => {
+
+
   return (
     <header className={styles.header}>
       <nav>
@@ -17,9 +20,7 @@ export const Header = () => {
             </Link>
           </li>
           <li>
-            <Link href="/search">
-              <a>Buscar</a>
-            </Link>
+            <InputSearch />
           </li>
         </ul>
       </nav>
