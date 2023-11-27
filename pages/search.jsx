@@ -26,6 +26,10 @@ const Search = () => {
     search
   );
 
+  function moreDetails(id) {
+    router.push(`/movie/${id}`);
+  }
+
 
   return (
     <div className={styles.container}>
@@ -37,7 +41,7 @@ const Search = () => {
       </h1>
 
       <ul className={styles.container_results}>
-        <Card movies={results} />
+        <Card movies={results} moreDetails={moreDetails} />
       </ul>
     </div>
   );
