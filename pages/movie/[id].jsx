@@ -10,8 +10,6 @@ export default function Movie({ movie }) {
 
   if (router.isFallback) return <h1>Loading...</h1>;
 
-  console.log(movie)
-
   return (
     <div>
       <Head>
@@ -58,7 +56,7 @@ export default function Movie({ movie }) {
       <p>{movie.overview}</p>
 
 
-         <iframe
+      <iframe
         width="560"
         height="315"
         src={movie.urlMovie}
@@ -81,7 +79,7 @@ export default function Movie({ movie }) {
 }
 
 export const getStaticPaths = async () => {
-  const res = await axios.get("https://api.themoviedb.org/3/movie/now_playing?api_key=abff7a99b8f97c6f37ba8e4ee5382d72&language=en-US&page=1");
+  const res = await axios.get(`https://api.themoviedb.org/3/movie/now_playing?api_key=${process.env.API_KEY_TMDB}&language=pt-BR&page=1`);
   const movies = res.data.results;
   const paths = movies.map((movie) => ({
     params: {
@@ -93,7 +91,7 @@ export const getStaticPaths = async () => {
 
 export const getStaticProps = async (context) => {
   const id = context.params.id;
-  const res = await axios.get(`https://api.themoviedb.org/3/movie/${id}?api_key=${process.env.API_KEY_TMDB}&language=en-US`);
+  const res = await axios.get(`https://api.themoviedb.org/3/movie/${id}?api_key=${process.env.API_KEY_TMDB}&language=pt-BR`);
   const movie = res.data
 
   movie.urlMovie = `${process.env.URL_PLAY}${movie.id}`

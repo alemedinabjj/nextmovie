@@ -101,3 +101,84 @@
     transform: scale(1.1);
   }
 }
+
+.seasons {
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+  gap: 1.5rem;
+
+  .season__collapsed {
+   //menu fechado
+    height: 30px;
+    overflow: hidden;
+    transition: all 0.3s ease-in-out;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+
+
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 0 1px rgba(0, 0, 0, 0.5);
+
+    .episode {
+      display: none;
+    }
+  }
+
+  .season {
+
+    //menu aberto
+    width: 100%;
+    height: auto;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: start;
+    justify-content: space-between;
+    flex-direction: column;
+    margin-top: 1rem;
+
+    //boxshadow light
+    box-shadow: 0 0 1px rgba(0, 0, 0, 0.5);
+    border-radius: 10px;
+    padding: 20px;
+
+    transition: all 0.3s ease-in-out;
+
+
+    .season__info {
+      display: flex;
+      align-items: center;
+
+      .season__poster {
+        width: 100px;
+        height: 150px;
+        object-fit: cover;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        margin-right: 20px;
+      }
+    
+
+      .season__date {
+        font-size: 1rem;
+        font-weight: 400;
+      }
+    }
+
+    .episodes {
+      width: 100%;
+      display: grid;
+      //5 colunas no grid, ou resposivo 2 colunas
+      grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+      gap: 1rem;
+      margin-top: 1rem;
+
+   
+    }
+
+    
+  }
+}

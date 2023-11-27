@@ -19,7 +19,7 @@ export default function Home({ movies }) {
 }
 
 export const getStaticProps = async () => {
-  const res = await axios.get(`https://api.themoviedb.org/3/movie/popular?api_key=${process.env.API_KEY_TMDB}&language=en-US&page=1`);
+  const res = await axios.get(`https://api.themoviedb.org/3/movie/popular?api_key=${process.env.API_KEY_TMDB}&language=pt-BR&page=1`);
   const movies = res.data.results.map((item) => {
     return {
       ...item,

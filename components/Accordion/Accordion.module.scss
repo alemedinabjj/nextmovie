@@ -1,0 +1,43 @@
+// Accordion.module.scss
+.accordion {
+  border: 1px solid #ddd;
+  box-shadow: 0 0 1px rgba(0, 0, 0, 0.5);
+  border-radius: 10px;
+  overflow: hidden;
+  width: 100%;
+  cursor: pointer;
+  transition: border-color 0.3s ease-in-out;
+
+  &.open {
+    .accordionHeader {
+      border-bottom-color: transparent;
+    }
+  }
+
+  &:hover {
+    border-color: #aaa;
+  }
+
+  .accordionHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    background-color: #fff;
+    font-weight: bold;
+
+    .arrow {
+      font-size: 18px;
+      transition: transform 0.3s ease-in-out;
+
+      &.open {
+        transform: rotate(90deg);
+      }
+    }
+  }
+
+  .accordionContent {
+    padding: 10px;
+    background-color: #fff;
+  }
+}

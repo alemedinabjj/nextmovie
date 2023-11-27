@@ -1,5 +1,3 @@
-import { useState, useEffect } from "react";
-import Link from "next/link";
 import Head from "next/head";
 import axios from "axios";
 import styles from "./search.module.scss";
@@ -16,7 +14,7 @@ const Search = () => {
 
   const search = async () => {
     const { data } = await axios.get(
-      `https://api.themoviedb.org/3/search/multi?api_key=abff7a99b8f97c6f37ba8e4ee5382d72&language=pt-BR&query=${query}`
+      `https://api.themoviedb.org/3/search/multi?api_key=${process.env.API_KEY_TMDB}&language=pt-BR&query=${query}`
     );
     console.log(data.results);
 
@@ -28,16 +26,15 @@ const Search = () => {
     search
   );
 
-  console.log(results)
-  
-
 
   return (
     <div className={styles.container}>
       <Head>
         <title>Search | {query}</title>
       </Head>
-      <h1>Search</h1>
+      <h1>
+        {query}
+      </h1>
 
       <ul className={styles.container_results}>
         <Card movies={results} />

@@ -1,8 +1,8 @@
 import { useRouter } from "next/router";
 import { Card } from "../Card/Card";
-import { Pagination } from "../Pagination/Pagination";
 import styles from "./styles.module.scss";
-import { useQuery } from "react-query";
+import { useInfiniteQuery } from "react-query";
+import { useEffect, useRef } from "react";
 
 
 const MovieDisplay = ({ movies }) => {
@@ -14,38 +14,70 @@ const MovieDisplay = ({ movies }) => {
 
   console.log(apiKey)
 
-  const { data: moviesData, isLoading, isError } = useQuery(["movies", page, apiKey], async () => {
-    const res = await fetch(`https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}&language=en-US&page=${page}`);
+  async function fetchMovies(page) {
+    const res = await fetch(`https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}&language=pt-BR&page=${page}`);
     const data = await res.json();
-    return data.results;
-  }, 
+
+    console.log(data)
+    return data;
+  }
+
+  const { data: moviesData, isLoading, isError, isFetchingNextPage, hasNextPage, fetchNextPage } = useInfiniteQuery(["movies", page, apiKey], async ({ pageParam = 1 }) => 
+    fetchMovies(pageParam)
+  , 
   {
+    getNextPageParam: (lastPage) => {
+      if (lastPage.page < lastPage.total_pages) {
+        return lastPage.page + 1;
+      }
+      return undefined;
+    },
     initialData: movies,
     refetchOnWindowFocus: false,
     keepPreviousData: true,
   }
   );
 
+  useEffect(() => {
+    const options = {
+      root: null,
+      rootMargin: "0px",
+      threshold: 1.0,
+    };
+  
+    const callback = (entries) => {
+      if (entries[0].isIntersecting) {
+        fetchNextPage();
+      }
+    };
+  
+    const observer = new IntersectionObserver(callback, options);
+  
+    const targetElement = document.getElementById("observer"); 
+    if (targetElement) {
+      observer.observe(targetElement);
+    }
+  
+    return () => {
+      if (targetElement) {
+        observer.unobserve(targetElement);
+      }
+    };
+  }, []);
 
-  const handleNextMovie = () => {
-    router.push(`/?page=${parseInt(page) + 1}`);
+  const handleMovieDetail = (id) => {
+    router.push(`/movie/${id}`);
   };
-
-  const handlePrevMovie = () => {
-
-    //se for menor que 1, não faz nada
-    if (parseInt(page) <= 1) return;
-
-    router.push(`/?page=${parseInt(page) - 1}`);
-
-  };
-
-  console.log(moviesData);
 
   return (
     <div className={styles.container}>
-      <Card movies={moviesData} />
-      <Pagination handleNextMovie={handleNextMovie} handlePrevMovie={handlePrevMovie} />
+      {moviesData?.pages?.map((movie) => (
+        <Card movies={movie.results} key={movie.page} moreDetails={handleMovieDetail} />
+      ))}
+
+      <div
+        id="observer"
+      ></div>
     </div>
   );
 };
